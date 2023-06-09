@@ -1,22 +1,27 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+//import org.junit.jupiter.api.Test;
 
-public class SetClass {
-    public static void main(String[] args) {
-        Set<String> names = new HashSet<>();
-        names.add("Tomi");
-        names.add("Yemi");
-        names.add("Bismark");
-        names.add("Ebun");
-        names.add("Ebun");
-        names.add("");
-        names.add("Ebun");
-        for(String i : names){
-            System.out.println(i);
+import java.util.HashMap;
+import java.util.Map;
+
+
+public class MapClass {
+//    @Test
+    public void mapTest() {
+        Map<String, Integer> StudentsAge= new HashMap<>();
+        StudentsAge.put("Tomi", 25);
+        StudentsAge.put("Yemi", 29);
+        StudentsAge.put("Bismark", 30);
+        StudentsAge.put("Bismark", 40);
+        StudentsAge.put("Ebun", 27);
+        StudentsAge.put("Lateef", 26);
+
+        System.out.println(StudentsAge.get("Bismark"));
+        for(Map.Entry i : StudentsAge.entrySet()){
+            System.out.println(i.getKey() + " " + i.getValue());
         }
+        System.out.println("hello");
+
     }
 }

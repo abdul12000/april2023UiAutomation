@@ -3,15 +3,15 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LambdaHomePage {
+public class LambdaMyAccountPage {
     WebDriver driver;
-    By myAccountButton = By.xpath("//span[contains(text(),'My account')]");
+    private By continueButton = By.linkText("Continue");
 
-    public LambdaHomePage(WebDriver driver){
+    public LambdaMyAccountPage(WebDriver driver){
         this.driver = driver;
     }
-    public void  clickOnMyAccount(){
-        driver.findElements(myAccountButton).get(1).click();
+    public void  clickOnContinueButton(){
+        driver.findElement(continueButton).click();
     }
 
 }

@@ -7,16 +7,21 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.LambdaHomePage;
+import pages.LambdaMyAccountPage;
+import pages.LambdaRegisterConfirmationPage;
+import pages.LambdaRegistrationPage;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.Random;
@@ -26,7 +31,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class LambdaRegisterAnAccountStepDef2 {
+public class LambdaRegisterAnAccountStepDefPOM {
     WebDriver driver;
 
     @Before
@@ -69,8 +74,10 @@ public class LambdaRegisterAnAccountStepDef2 {
     @When("I click on MyAccount Menu")
     public void i_click_on_my_account_menu() {
         // Write code here that turns the phrase above into concrete actions
-        List<WebElement> myAccount = driver.findElements(By.xpath("//span[contains(text(),'My account')]"));
-        myAccount.get(1).click();
+//        List<WebElement> myAccount = driver.findElements(By.xpath("//span[contains(text(),'My account')]"));
+//        myAccount.get(1).click();
+        LambdaHomePage lambdaHomePage = new LambdaHomePage(driver);
+        lambdaHomePage.clickOnMyAccount();
 
 
     }
@@ -78,9 +85,10 @@ public class LambdaRegisterAnAccountStepDef2 {
     @When("I click on Continue under the New Customer")
     public void i_click_on_continue_under_the_new_customer() {
         // Write code here that turns the phrase above into concrete actions
-        WebElement continueButton = driver.findElement(By.linkText("Continue"));
-        continueButton.click();
-
+//        WebElement continueButton = driver.findElement(By.linkText("Continue"));
+//        continueButton.click();
+        LambdaMyAccountPage lambdaMyAccountPage = new LambdaMyAccountPage(driver);
+        lambdaMyAccountPage.clickOnContinueButton();
     }
 
     @Then("the Register Account page should be displayed")
@@ -113,36 +121,29 @@ public class LambdaRegisterAnAccountStepDef2 {
     static int pNumber() {
         Random ran = new Random();
         return ran.nextInt(1000);
+
+
     }
     @When("I accept the privacy policy")
     public void i_accept_the_privacy_policy() {
-        // Write code here that turns the phrase above into concrete actions
-        WebElement privacyPolicy = driver.findElement(By.xpath("//label[@for='input-agree']"));
-        privacyPolicy.click();
+        LambdaRegistrationPage lambdaRegistrationPage = new LambdaRegistrationPage(driver);
+        lambdaRegistrationPage.clickOnPrivacyPolicy();
     }
     @When("I click on Continue button on the Register and Account page")
     public void i_click_on_continue_button_on_the_register_and_account_page() {
-        // Write code here that turns the phrase above into concrete actions
-        WebElement continueButton = driver.findElement(By.xpath("//input[@value='Continue']"));
-        continueButton.click();
+        LambdaRegistrationPage lambdaRegistrationPage = new LambdaRegistrationPage(driver);
+        lambdaRegistrationPage.clickOnContinueButton();
     }
     @Then("Register Confirmation page is displayed")
     public void register_confirmation_page_is_displayed() {
-        // Write code here that turns the phrase above into concrete actions
-        WebElement registerConfirmation = driver.findElement(By.xpath("//h1[@class='page-title my-3']"));
-        assertThat(registerConfirmation.isDisplayed(),is(equalTo(true)));
+        LambdaRegisterConfirmationPage lambdaRegisterConfirmationPage = new LambdaRegisterConfirmationPage(driver);
+        assertThat(lambdaRegisterConfirmationPage.getPageheader(), is(equalTo("Your Account Has Been Created!")));
 
 
     }
 
     @Then("error message is displayed")
     public void errorMessageIsDisplayed() {
-//WebElement ppMsg = driver.findElement(By.xpath("//*[@id='account-register']/div[1]"));
-//        System.out.println(ppMsg.getText());
-//        assertThat(ppMsg.getText(), is(equalTo("Warning: You must agree to the Privacy Policy!")));
-
-        //using isDisplayed method:
-
         WebElement ppMsg = driver.findElement(By.xpath("//div[contains(text(),' Warning: You must agree to the Privacy Policy!')]")) ;
         assertThat(ppMsg.isDisplayed(), is(true));
 
@@ -235,22 +236,74 @@ public class LambdaRegisterAnAccountStepDef2 {
 
     @And("I enter valid details for {string}, {string}, {string}, {string} and {string}")
     public void iEnterValidDetailsForAnd(String fName, String lName, String eMail, String tPhone, String pWord) {
-        WebElement firstName = driver.findElement(By.id("input-firstname"));
-        firstName.sendKeys(fName);
-        WebElement lastName = driver.findElement(By.id("input-lastname"));
-        lastName.sendKeys(lName);
-        WebElement emailAddress = driver.findElement(By.id("input-email"));
-        emailAddress.sendKeys(pNumber()+ eMail);
-        WebElement telephoneNum = driver.findElement(By.id("input-telephone"));
-        telephoneNum.sendKeys(tPhone);
-        WebElement passWord = driver.findElement(By.id("input-password"));
-        passWord.sendKeys(pWord);
-        WebElement confirmPword = driver.findElement(By.id("input-confirm"));
-        confirmPword.sendKeys(pWord);
+//        WebElement firstName = driver.findElement(By.id("input-firstname"));
+//        firstName.sendKeys(fName);
+//        WebElement lastName = driver.findElement(By.id("input-lastname"));
+//        lastName.sendKeys(lName);
+//        WebElement emailAddress = driver.findElement(By.id("input-email"));
+//        emailAddress.sendKeys(pNumber()+ eMail);
+//        WebElement telephoneNum = driver.findElement(By.id("input-telephone"));
+//        telephoneNum.sendKeys(tPhone);
+//        WebElement passWord = driver.findElement(By.id("input-password"));
+//        passWord.sendKeys(pWord);
+//        WebElement confirmPword = driver.findElement(By.id("input-confirm"));
+//        confirmPword.sendKeys(pWord);
+
+        LambdaRegistrationPage lambdaRegistrationPage = new LambdaRegistrationPage(driver);
+        lambdaRegistrationPage.enterFirstname(fName);
+        lambdaRegistrationPage.enterLastname(lName);
+        lambdaRegistrationPage.enterEmail(eMail);
+        lambdaRegistrationPage.enterTelephoneNumber(tPhone);
+        lambdaRegistrationPage.enterPassword(pWord);
+        lambdaRegistrationPage.enterConfirmPassword(pWord);
     }
     @After
-    public void tearDown(){
+    public void tearDown() throws IOException {
+        takeScreenshot();
         driver.close();
         driver.quit();
     }
+
+    private void takeScreenshot() throws IOException {
+        TakesScreenshot scrShot =((TakesScreenshot)driver);
+        File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(SrcFile, new File ("target/screenshot" + System.currentTimeMillis()+ ".png"));
+
+    }
+
+//    @And("I enter valid details as")
+//    public void iEnterValidDetailsAs() {
+//
+//    }
+
+    @And("I enter valid details as")
+    public void iEnterValidDetailsAs(List<String> table) {
+        LambdaRegistrationPage lambdaRegistrationPage = new LambdaRegistrationPage(driver);
+        lambdaRegistrationPage.enterFirstname(table.get(0));
+        lambdaRegistrationPage.enterLastname(table.get(1));
+        lambdaRegistrationPage.enterEmail(table.get(2));
+        lambdaRegistrationPage.enterTelephoneNumber(table.get(3));
+        lambdaRegistrationPage.enterPassword(table.get(4));
+        lambdaRegistrationPage.enterConfirmPassword(table.get(4));
+
+    }
+
+    @And("I enter valid details for registration as")
+    public void iEnterValidDetailsForRegistrationAs(List<List<String>> table) {
+        LambdaRegistrationPage lambdaRegistrationPage = new LambdaRegistrationPage(driver);
+        lambdaRegistrationPage.enterFirstname(table.get(1).get(1));
+        lambdaRegistrationPage.enterLastname(table.get(2).get(1));
+        lambdaRegistrationPage.enterEmail(table.get(3).get(1));
+        lambdaRegistrationPage.enterTelephoneNumber(table.get(4).get(1));
+        lambdaRegistrationPage.enterPassword(table.get(5).get(1));
+        lambdaRegistrationPage.enterConfirmPassword(table.get(5).get(1));
+    }
+
+    @When("I hover on myAccount and click Register using POM")
+    public void iHoverOnMyAccountAndClickRegisterUsingPOM() {
+LambdaHomePage lambdaHomePage = new LambdaHomePage(driver);
+lambdaHomePage.hooverOnMyAccountAndClickRegisterLink();
+    }
+
+
 }
