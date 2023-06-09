@@ -1,11 +1,11 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-public class ListClass {
+public class SetClass {
     public static void main(String[] args) {
-        List<String> names = new ArrayList<>();
+        Set<String> names = new HashSet<>();
         names.add("Tomi");
         names.add("Yemi");
         names.add("Bismark");

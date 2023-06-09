@@ -3,15 +3,15 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LambdaHomePage {
+public class LambdaRegisterConfirmationPage {
     WebDriver driver;
-    By myAccountButton = By.xpath("//span[contains(text(),'My account')]");
+    private By pageHeader = By.xpath("//h1[@class='page-title my-3']");
 
-    public LambdaHomePage(WebDriver driver){
+    public LambdaRegisterConfirmationPage(WebDriver driver){
         this.driver = driver;
     }
-    public void  clickOnMyAccount(){
-        driver.findElements(myAccountButton).get(1).click();
+    public String  getPageheader(){
+         return driver.findElement(pageHeader).getText();
     }
 
 }
